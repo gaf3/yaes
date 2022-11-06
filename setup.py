@@ -27,7 +27,7 @@ setup(
     download_url="https://github.com/gaf3/yaes",
     author="Gaffer Fitch",
     author_email="yaes@gaf3.com",
-    description="Double underscore access notation",
+    description="Yet Another Expansion Syntax (pronounced “Yasssss Kweeeeen”)",
     long_description=long_description,
     license_files=('LICENSE.txt',),
     classifiers=[
