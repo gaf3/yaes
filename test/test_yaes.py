@@ -32,6 +32,27 @@ class TestEngine(sphinxter.unittest.TestCase):
 
         self.assertSphinxter(yaes.Engine.transform)
 
+    def test_require(self):
+
+        self.assertTrue(self.engine.require({}, {}))
+
+        block = {
+            "require": "a"
+        }
+
+        self.assertTrue(self.engine.require(block, {"a": 1}))
+        self.assertFalse(self.engine.require(block, {}))
+
+        block = {
+            "require": ["a__b", "{[ a__b ]}"]
+        }
+
+        self.assertFalse(self.engine.require(block, {}))
+        self.assertFalse(self.engine.require(block, {"a": {"b": "c"}}))
+        self.assertTrue(self.engine.require(block, {"a": {"b": "c"}, "c": "yep"}))
+
+        self.assertSphinxter(yaes.Engine.require)
+
     def test_transpose(self):
 
         self.assertEqual({"b": 1}, self.engine.transpose({"transpose": {"b": "a"}}, {"a": 1}))
