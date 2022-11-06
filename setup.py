@@ -21,7 +21,7 @@ setup(
     ],
     install_requires=[
         'Jinja2==3.1.2',
-        'overscore==0.1.0'
+        'overscore==0.1.1'
     ],
     url=f"https://yaes.readthedocs.io/en/{version}/",
     download_url="https://github.com/gaf3/yaes",

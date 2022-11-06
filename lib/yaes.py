@@ -110,6 +110,61 @@ class Engine:
 
         return template
 
+    def require(self,
+        block:dict, # block to evaulate
+        values:dict # values to evaluate with
+    )->bool:
+        """
+        description: |
+            Determines whether values are set to process a block
+        usage: |
+            ::
+
+                import yaes
+
+                engine = yaes.Engine()
+
+                engine.require({}, {})
+                # True
+
+                block = {
+                    "require": "a"
+                }
+
+                engine.require(block, {"a": 1})
+                # True
+
+                engine.require(block, {})
+                # False
+
+                block = {
+                    "require": ["a__b", "{[ a__b ]}"]
+                }
+
+                engine.require(block, {})
+                # False
+
+                engine.require(block, {"a": {"b": "c"}})
+                # False
+
+                engine.require(block, {"a": {"b": "c"}, "c": "yep"})
+                # True
+        """
+
+        if "require" not in block:
+            return True
+
+        require = block["require"]
+
+        if not isinstance(require, list):
+            require = [require]
+
+        for path in require:
+            if not overscore.has(values, self.transform(path, values)):
+                return False
+
+        return True
+
     @staticmethod
     def transpose(
         block:dict, # block to evaulate
