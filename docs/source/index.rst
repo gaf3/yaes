@@ -244,6 +244,50 @@ Yet Another Expansion Syntax (pronounced "Yasssss Kweeeeen") for expanding compl
             #     }
             # ]
 
+    .. method:: require(block: dict, values: dict) -> bool
+
+        Determines whether values are set to process a block
+
+        :param block: block to evaulate
+        :type block: dict
+        :param values: values to evaluate with
+        :type values: dict
+        :rtype: bool
+
+        **Usage**
+
+        ::
+
+            import yaes
+
+            engine = yaes.Engine()
+
+            engine.require({}, {})
+            # True
+
+            block = {
+                "require": "a"
+            }
+
+            engine.require(block, {"a": 1})
+            # True
+
+            engine.require(block, {})
+            # False
+
+            block = {
+                "require": ["a__b", "{[ a__b ]}"]
+            }
+
+            engine.require(block, {})
+            # False
+
+            engine.require(block, {"a": {"b": "c"}})
+            # False
+
+            engine.require(block, {"a": {"b": "c"}, "c": "yep"})
+            # True
+
     .. method:: transform(template, values: dict)
 
         Renders a Jinja2 template using values sent
