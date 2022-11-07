@@ -14,7 +14,7 @@ yaes
 
 .. module:: yaes
 
-Yet Another Expansion Syntax (pronounced "Yasssss Kweeeeen") for expanding complex data (YAML / JSON) with Jinja2 templating
+Yet Another Expansion Syntax (pronounced 'Yasssss Kweeeeen') for expanding complex data (YAML / JSON) with Jinja2 templating
 
 .. function:: each(blocks, values: dict, env=None)
 
@@ -61,6 +61,13 @@ Yet Another Expansion Syntax (pronounced "Yasssss Kweeeeen") for expanding compl
         #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
         #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
         # ]
+
+        block = {
+            "require": "a",
+        }
+
+        list(yaes.each(block, {}))
+        # []
 
 .. class:: Engine(env=None)
 
@@ -161,6 +168,13 @@ Yet Another Expansion Syntax (pronounced "Yasssss Kweeeeen") for expanding compl
             #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
             #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
             # ]
+
+            block = {
+                "require": "a",
+            }
+
+            list(engine.each(block, {}))
+            # []
 
     .. method:: iterate(block: dict, values: dict) -> list
 
