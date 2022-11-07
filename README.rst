@@ -1,7 +1,7 @@
 yaes
 ====
 
-Yet Another Expansion Syntax (pronounced "Yasssss Kweeeeen") for expanding complex data (YAML / JSON) with Jinja2 templating::
+Yet Another Expansion Syntax (pronounced 'Yasssss Kweeeeen') for expanding complex data (YAML / JSON) with Jinja2 templating::
 
     import yaes
 

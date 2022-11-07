@@ -138,6 +138,12 @@ class TestEngine(sphinxter.unittest.TestCase):
             (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
         ])
 
+        block = {
+            "require": "a",
+        }
+
+        self.assertEqual(list(self.engine.each(block, {})), [])
+
         self.assertSphinxter(yaes.Engine.each)
 
 class TestYeas(sphinxter.unittest.TestCase):

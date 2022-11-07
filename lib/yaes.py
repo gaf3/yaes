@@ -1,6 +1,6 @@
 """
 description: |
-    Yet Another Expansion Syntax (pronounced "Yasssss Kweeeeen") for expanding complex data (YAML / JSON) with Jinja2 templating
+    Yet Another Expansion Syntax (pronounced 'Yasssss Kweeeeen') for expanding complex data (YAML / JSON) with Jinja2 templating
 """
 
 # pylint: disable=consider-using-f-string
@@ -375,12 +375,23 @@ class Engine:
                 #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
                 #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
                 # ]
+
+                block = {
+                    "require": "a",
+                }
+
+                list(engine.each(block, {}))
+                # []
         """
 
         if isinstance(blocks, dict):
             blocks = [blocks]
 
         for block in blocks:
+
+            if not self.require(block, values):
+                continue
+
             for iterate_values in self.iterate(block, values):
                 block_values = {**values, **iterate_values, **block.get("values", {})}
                 if self.condition(block, block_values):
@@ -435,6 +446,13 @@ def each(
             #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
             #     (block, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
             # ]
+
+            block = {
+                "require": "a",
+            }
+
+            list(yaes.each(block, {}))
+            # []
     """
 
     for block in Engine(env).each(blocks, values):
