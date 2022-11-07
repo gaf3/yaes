@@ -63,7 +63,7 @@ Yet Another Expansion Syntax (pronounced 'Yasssss Kweeeeen') for expanding compl
         # ]
 
         block = {
-            "require": "a",
+            "requires": "a",
         }
 
         list(yaes.each(block, {}))
@@ -170,7 +170,7 @@ Yet Another Expansion Syntax (pronounced 'Yasssss Kweeeeen') for expanding compl
             # ]
 
             block = {
-                "require": "a",
+                "requires": "a",
             }
 
             list(engine.each(block, {}))
@@ -258,7 +258,7 @@ Yet Another Expansion Syntax (pronounced 'Yasssss Kweeeeen') for expanding compl
             #     }
             # ]
 
-    .. method:: require(block: dict, values: dict) -> bool
+    .. method:: requires(block: dict, values: dict) -> bool
 
         Determines whether values are set to process a block
 
@@ -276,30 +276,30 @@ Yet Another Expansion Syntax (pronounced 'Yasssss Kweeeeen') for expanding compl
 
             engine = yaes.Engine()
 
-            engine.require({}, {})
+            engine.requires({}, {})
             # True
 
             block = {
-                "require": "a"
+                "requires": "a"
             }
 
-            engine.require(block, {"a": 1})
+            engine.requires(block, {"a": 1})
             # True
 
-            engine.require(block, {})
+            engine.requires(block, {})
             # False
 
             block = {
-                "require": ["a__b", "{[ a__b ]}"]
+                "requires": ["a__b", "{[ a__b ]}"]
             }
 
-            engine.require(block, {})
+            engine.requires(block, {})
             # False
 
-            engine.require(block, {"a": {"b": "c"}})
+            engine.requires(block, {"a": {"b": "c"}})
             # False
 
-            engine.require(block, {"a": {"b": "c"}, "c": "yep"})
+            engine.requires(block, {"a": {"b": "c"}, "c": "yep"})
             # True
 
     .. method:: transform(template, values: dict)

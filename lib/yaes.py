@@ -110,7 +110,7 @@ class Engine:
 
         return template
 
-    def require(self,
+    def requires(self,
         block:dict, # block to evaulate
         values:dict # values to evaluate with
     )->bool:
@@ -124,42 +124,42 @@ class Engine:
 
                 engine = yaes.Engine()
 
-                engine.require({}, {})
+                engine.requires({}, {})
                 # True
 
                 block = {
-                    "require": "a"
+                    "requires": "a"
                 }
 
-                engine.require(block, {"a": 1})
+                engine.requires(block, {"a": 1})
                 # True
 
-                engine.require(block, {})
+                engine.requires(block, {})
                 # False
 
                 block = {
-                    "require": ["a__b", "{[ a__b ]}"]
+                    "requires": ["a__b", "{[ a__b ]}"]
                 }
 
-                engine.require(block, {})
+                engine.requires(block, {})
                 # False
 
-                engine.require(block, {"a": {"b": "c"}})
+                engine.requires(block, {"a": {"b": "c"}})
                 # False
 
-                engine.require(block, {"a": {"b": "c"}, "c": "yep"})
+                engine.requires(block, {"a": {"b": "c"}, "c": "yep"})
                 # True
         """
 
-        if "require" not in block:
+        if "requires" not in block:
             return True
 
-        require = block["require"]
+        requires = block["requires"]
 
-        if not isinstance(require, list):
-            require = [require]
+        if not isinstance(requires, list):
+            requires = [requires]
 
-        for path in require:
+        for path in requires:
             if not overscore.has(values, self.transform(path, values)):
                 return False
 
@@ -377,7 +377,7 @@ class Engine:
                 # ]
 
                 block = {
-                    "require": "a",
+                    "requires": "a",
                 }
 
                 list(engine.each(block, {}))
@@ -389,7 +389,7 @@ class Engine:
 
         for block in blocks:
 
-            if not self.require(block, values):
+            if not self.requires(block, values):
                 continue
 
             for iterate_values in self.iterate(block, values):
@@ -448,7 +448,7 @@ def each(
             # ]
 
             block = {
-                "require": "a",
+                "requires": "a",
             }
 
             list(yaes.each(block, {}))
