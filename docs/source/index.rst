@@ -232,8 +232,24 @@ If a blocks keyword is present, it'll expand those blocks, using the parent bloc
 
     list(yaes.each(blocks, values))
     # [
-    #     ({"name": "one", "base": "value"}, {"a": 1}),
-    #     ({"name": "two", "base": "override"}, {"a": 1})
+    #     (
+    #         {
+    #             "base": "value",
+    #             "name": "one"
+    #         },
+    #         {
+    #             "a": 1
+    #         }
+    #     ),
+    #     (
+    #         {
+    #             "base": "override",
+    #             "name": "two"
+    #         },
+    #         {
+    #             "a": 1
+    #         }
+    #     )
     # ]
 
 .. note::
@@ -246,7 +262,7 @@ block without having to use those keywords on each block.
 values
 ------
 
-If a values keyword is present, it'll merge those values into teh values emitted::
+If a values keyword is present, it'll merge those values into the values emitted::
 
     blocks = [
         {
@@ -254,18 +270,39 @@ If a values keyword is present, it'll merge those values into teh values emitted
         },
         {
             "name": "two",
-            "values": {"a": 2}
+            "values": {
+                "a": 2,
+                "c": "{{ b }}sah"
+            }
         }
     ]
 
     values = {
-        "a": 1
+        "a": 1,
+        "b": "yes"
     }
 
     list(yaes.each(blocks, values))
     # [
-    #     ({"name": "one"}, {"a": 1}),
-    #     ({"name": "two"}, {"a": 2})
+    #     (
+    #         {
+    #             "name": "one"
+    #         },
+    #         {
+    #             "a": 1,
+    #             "b": "yes"
+    #         }
+    #     ),
+    #     (
+    #         {
+    #             "name": "two"
+    #         },
+    #         {
+    #             "a": 2,
+    #             "b": "yes",
+    #             "c": "yessah"
+    #         }
+    #     )
     # ]
 
 .. note::
@@ -312,7 +349,7 @@ think even I've ever used it.
                 "d": "ds"
             },
             "condition": "{{ c != 3 and d != 't' }}",
-            "values": {"L": 7},
+            "values": {"L": "{{ c + 5 }}"},
             "blocks": [
                 {},
                 {
@@ -324,10 +361,10 @@ think even I've ever used it.
 
         list(yaes.each(block, values))
         # [
-        #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": 7}),
-        #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-        #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-        #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
+        #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": "7"}),
+        #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+        #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+        #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": "7"})
         # ]
 
         block = {
@@ -381,7 +418,7 @@ think even I've ever used it.
                     "d": "ds"
                 },
                 "condition": "{{ c != 3 and d != 't' }}",
-                "values": {"L": 7}
+                "values": {"L": "{{ c + 5 }}"}
             }
 
             list(engine.blocks(block, {}))
@@ -412,7 +449,7 @@ think even I've ever used it.
                             "d": "ds"
                         },
                         "condition": "{{ c != 3 and d != 't' }}",
-                        "values": {"L": 7},
+                        "values": {"L": "{{ c + 5 }}"},
                     }
                 ]
             }
@@ -420,9 +457,9 @@ think even I've ever used it.
             list(engine.blocks(block, values))
             # [
             #     ({"ya": "whatever"}, {"a": 1, "cs": [2, 3], "ds": "nuts"}),
-            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": 7}),
-            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
+            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": "7"}),
+            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": "7"})
             # ]
 
     .. classmethod:: clean(block: dict) -> dict
@@ -540,7 +577,7 @@ think even I've ever used it.
                     "d": "ds"
                 },
                 "condition": "{{ c != 3 and d != 't' }}",
-                "values": {"L": 7},
+                "values": {"L": "{{ c + 5 }}"},
                 "blocks": [
                     {},
                     {
@@ -552,10 +589,10 @@ think even I've ever used it.
 
             list(engine.each(block, values))
             # [
-            #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": 7}),
-            #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
+            #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": "7"}),
+            #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            #     ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            #     ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": "7"})
             # ]
 
             block = {
