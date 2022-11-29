@@ -128,7 +128,7 @@ class TestEngine(sphinxter.unittest.TestCase):
             },
             "condition": "{{ c != 3 and d != 't' }}",
             "blocks": [1,2, 3],
-            "values": {"L": 7}
+            "values": {"L": "{{ c + 5 }}"}
         }
 
         self.assertEqual(self.engine.clean(block), {"ya": "sure"})
@@ -148,7 +148,7 @@ class TestEngine(sphinxter.unittest.TestCase):
                 "d": "ds"
             },
             "condition": "{{ c != 3 and d != 't' }}",
-            "values": {"L": 7}
+            "values": {"L": "{{ c + 5 }}"}
         }
 
         self.assertEqual(list(self.engine.blocks(block, {})), [({"ya": "sure"}, {})])
@@ -176,16 +176,16 @@ class TestEngine(sphinxter.unittest.TestCase):
                         "d": "ds"
                     },
                     "condition": "{{ c != 3 and d != 't' }}",
-                    "values": {"L": 7},
+                    "values": {"L": "{{ c + 5 }}"},
                 }
             ]
         }
 
         self.assertEqual(list(self.engine.blocks(block, values)), [
             ({"ya": "whatever"}, {"a": 1, "cs": [2, 3], "ds": "nuts"}),
-            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": 7}),
-            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
+            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": "7"}),
+            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": "7"})
         ])
 
         self.assertSphinxter(yaes.Engine.blocks)
@@ -208,7 +208,7 @@ class TestEngine(sphinxter.unittest.TestCase):
                 "d": "ds"
             },
             "condition": "{{ c != 3 and d != 't' }}",
-            "values": {"L": 7},
+            "values": {"L": "{{ c + 5 }}"},
             "blocks": [
                 {},
                 {
@@ -219,10 +219,10 @@ class TestEngine(sphinxter.unittest.TestCase):
         }
 
         self.assertEqual(list(self.engine.each(block, values)), [
-            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": 7}),
-            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
+            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": "7"}),
+            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": "7"})
         ])
 
         block = {
@@ -257,7 +257,7 @@ class TestYeas(sphinxter.unittest.TestCase):
                 "d": "ds"
             },
             "condition": "{{ c != 3 and d != 't' }}",
-            "values": {"L": 7},
+            "values": {"L": "{{ c + 5 }}"},
             "blocks": [
                 {},
                 {
@@ -268,10 +268,10 @@ class TestYeas(sphinxter.unittest.TestCase):
         }
 
         self.assertEqual(list(yaes.each(block, values)), [
-            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": 7}),
-            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": 7}),
-            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": 7})
+            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "n", "L": "7"}),
+            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            ({"ya": "ofcourse"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "u", "L": "7"}),
+            ({"ya": "sure"}, {"a": 1, "cs": [2, 3], "ds": "nuts", "b": 1, "c": 2, "d": "s", "L": "7"})
         ])
 
         self.assertSphinxter(yaes.each)
