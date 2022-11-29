@@ -219,8 +219,24 @@ If a blocks keyword is present, it'll expand those blocks, using the parent bloc
 
     list(yaes.each(blocks, values))
     # [
-    #     ({"name": "one", "base": "value"}, {"a": 1}),
-    #     ({"name": "two", "base": "override"}, {"a": 1})
+    #     (
+    #         {
+    #             "base": "value",
+    #             "name": "one"
+    #         },
+    #         {
+    #             "a": 1
+    #         }
+    #     ),
+    #     (
+    #         {
+    #             "base": "override",
+    #             "name": "two"
+    #         },
+    #         {
+    #             "a": 1
+    #         }
+    #     )
     # ]
 
 .. note::
@@ -241,18 +257,39 @@ If a values keyword is present, it'll merge those values into teh values emitted
         },
         {
             "name": "two",
-            "values": {"a": 2}
+            "values": {
+                "a": 2,
+                "c": "{{ b }}sah"
+            }
         }
     ]
 
     values = {
-        "a": 1
+        "a": 1,
+        "b": "yes"
     }
 
     list(yaes.each(blocks, values))
     # [
-    #     ({"name": "one"}, {"a": 1}),
-    #     ({"name": "two"}, {"a": 2})
+    #     (
+    #         {
+    #             "name": "one"
+    #         },
+    #         {
+    #             "a": 1,
+    #             "b": "yes"
+    #         }
+    #     ),
+    #     (
+    #         {
+    #             "name": "two"
+    #         },
+    #         {
+    #             "a": 2,
+    #             "b": "yes",
+    #             "c": "yessah"
+    #         }
+    #     )
     # ]
 
 .. note::
