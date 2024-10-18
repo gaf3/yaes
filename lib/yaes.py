@@ -400,13 +400,17 @@ class Engine:
 
                 engine.transform("{[ a__b ]}", {"a": {"b": 3}})
                 # 3
+
+                engine.transform("{[ {{ first }}__{{ second }} ]}", {"first": "a", "second": "b", "a": {"b": 3}})
+                # 3
+
         """
 
         if isinstance(template, str):
             if len(template) > 4 and template[:2] == "{?" and template[-2:] == "?}":
                 return self.env.from_string("{{%s}}" % template[2:-3]).render(**values) == "True"
             if len(template) > 4 and template[:2] == "{[" and template[-2:] == "]}":
-                return overscore.get(values, template[2:-3].strip())
+                return overscore.get(values, self.transform(template[2:-3].strip(), values))
             return self.env.from_string(template).render(**values)
         if isinstance(template, list):
             return [self.transform(item, values) for item in template]
