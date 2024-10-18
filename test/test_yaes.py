@@ -31,6 +31,7 @@ class TestEngine(sphinxter.unittest.TestCase):
         self.assertEqual(False, self.engine.transform("{? 1 == 0 ?}", {}))
         self.assertEqual(None, self.engine.transform("{[ a__b ]}", {}))
         self.assertEqual(3, self.engine.transform("{[ a__b ]}", {"a": {"b": 3}}))
+        self.assertEqual(3, self.engine.transform("{[ {{ first }}__{{ second }} ]}", {"first": "a", "second": "b", "a": {"b": 3}}))
 
         self.assertSphinxter(yaes.Engine.transform)
 
