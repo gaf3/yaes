@@ -791,6 +791,9 @@ think even I've ever used it.
             engine.transform("{[ a__b ]}", {"a": {"b": 3}})
             # 3
 
+            engine.transform("{[ {{ first }}__{{ second }} ]}", {"first": "a", "second": "b", "a": {"b": 3}})
+            # 3
+
     .. staticmethod:: transpose(block: dict, values: dict) -> dict
 
         Transposes values, allows for the same value under a different name
