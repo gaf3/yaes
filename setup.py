@@ -21,7 +21,7 @@ setup(
     ],
     install_requires=[
         'Jinja2==3.1.2',
-        'overscore==0.1.1',
+        'overscore==0.1.2',
         'MarkupSafe==2.1.5'
     ],
     url=f"https://yaes.readthedocs.io/en/{version}/",
