@@ -788,10 +788,10 @@ think even I've ever used it.
             engine.transform("{[ a__b ]}", {})
             # None
 
-            engine.transform("{[ a__b ]}", {"a": {"b": 3}})
+            engine.transform("{[ a__b-c ]}", {"a": {"b-c": 3}})
             # 3
 
-            engine.transform("{[ {{ first }}__{{ second }} ]}", {"first": "a", "second": "b", "a": {"b": 3}})
+            engine.transform("{[ {{ first }}__{{ second }} ]}", {"first": "a", "second": "b-c", "a": {"b-c": 3}})
             # 3
 
     .. staticmethod:: transpose(block: dict, values: dict) -> dict

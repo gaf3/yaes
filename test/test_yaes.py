@@ -30,8 +30,8 @@ class TestEngine(sphinxter.unittest.TestCase):
         self.assertEqual(True, self.engine.transform("{? 1 == 1 ?}", {}))
         self.assertEqual(False, self.engine.transform("{? 1 == 0 ?}", {}))
         self.assertEqual(None, self.engine.transform("{[ a__b ]}", {}))
-        self.assertEqual(3, self.engine.transform("{[ a__b ]}", {"a": {"b": 3}}))
-        self.assertEqual(3, self.engine.transform("{[ {{ first }}__{{ second }} ]}", {"first": "a", "second": "b", "a": {"b": 3}}))
+        self.assertEqual(3, self.engine.transform("{[ a__b-c ]}", {"a": {"b-c": 3}}))
+        self.assertEqual(3, self.engine.transform("{[ {{ first }}__{{ second }} ]}", {"first": "a", "second": "b-c", "a": {"b-c": 3}}))
 
         self.assertSphinxter(yaes.Engine.transform)
 
