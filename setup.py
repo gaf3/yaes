@@ -20,7 +20,7 @@ setup(
         'yaes'
     ],
     install_requires=[
-        'Jinja2==3.1.2',
+        'Jinja2>=3.1.6',
         'overscore==0.1.2',
         'MarkupSafe==2.1.5'
     ],
